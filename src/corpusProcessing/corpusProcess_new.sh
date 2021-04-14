@@ -48,7 +48,11 @@ cd $path
 
 echo ${green}===Running NLP Feature Extraction===${reset}
 export OMP_NUM_THREADS=1
-split --number=l/$THREAD ../../data/$DATA/intermediate/segmentation.txt ../../data/$DATA/intermediate/subcorpus-
+# linux
+# split --number=l/$THREAD ../../data/$DATA/intermediate/segmentation.txt ../../data/$DATA/intermediate/subcorpus-
+# brew install coreutils
+
+gsplit --number=l/$THREAD ../../data/$DATA/intermediate/segmentation.txt ../../data/$DATA/intermediate/subcorpus-
 # myfilesize=$(wc -c "../../data/$DATA/intermediate/segmentation.txt" | awk '{print $1}')
 # split -b $(expr $myfilesize / $THREAD + 1) ../../data/$DATA/intermediate/segmentation.txt ../../data/$DATA/intermediate/subcorpus-
 python3 multiprocess_annotateNLPFeature.py $DATA $THREAD

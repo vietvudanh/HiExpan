@@ -2,3 +2,4 @@ numpy
 scipy
 tqdm
 gensim
+spacy==2.3.5

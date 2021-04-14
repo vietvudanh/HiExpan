@@ -1,5 +1,8 @@
-CXX = g++
+# CXX = g++
+CXX = /usr/local/opt/llvm/bin/clang
 CFLAGS = -std=c++11 -Wall -O3 -msse2  -fopenmp  -I..
+#CFLAGS = -v -std=c++11 -Wall -O3 -msse2  -Xpreprocessor -fopenmp -libomp  -I..
+#LDFLAGS=$(LDFLAGS) -L/usr/local/opt/llvm/lib
 
 BIN = ./bin/segphrase_train ./bin/segphrase_segment
 .PHONY: clean all
@@ -14,8 +17,10 @@ all: ./bin $(BIN)
 
 LDFLAGS= -pthread -lm -Wno-unused-result -Wno-sign-compare -Wno-unused-variable -Wno-parentheses -Wno-format
 $(BIN) :
-	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(filter %.cpp %.o %.c, $^)
+	@echo "bin"
+	$(CXX) $(CFLAGS) $(LDFLAGS) -L/usr/local/opt/llvm/lib -o $@ $(filter %.cpp %.o %.c, $^)
 $(OBJ) :
+	@echo "obj"
 	$(CXX) -c $(CFLAGS) -o $@ $(firstword $(filter %.cpp %.c, $^) )
 
 clean :
