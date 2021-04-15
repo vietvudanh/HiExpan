@@ -1,1 +1,9 @@
 .idea
+data
+KB
+src/tools/AutoPhrase/bin/
+src/tools/AutoPhrase/tmp/
+src/tools/AutoPhrase/models/
+src/tools/AutoPhrase/tools/treetagger/bin/
+
+**/__pycache__

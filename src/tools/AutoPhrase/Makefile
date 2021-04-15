@@ -1,6 +1,9 @@
 # CXX = g++
-CXX = /usr/local/opt/llvm/bin/clang
-CFLAGS = -std=c++11 -Wall -O3 -msse2  -fopenmp  -I..
+# intel mac
+#CXX = /usr/local/opt/llvm/bin/clang
+# m1 mac
+CXX = /opt/homebrew/opt/llvm/bin/clang++
+CFLAGS = -std=c++11 -Wall -O3 -msse2  -fopenmp -I/opt/homebrew/opt/llvm/include -I..
 #CFLAGS = -v -std=c++11 -Wall -O3 -msse2  -Xpreprocessor -fopenmp -libomp  -I..
 #LDFLAGS=$(LDFLAGS) -L/usr/local/opt/llvm/lib
 
@@ -18,7 +21,10 @@ all: ./bin $(BIN)
 LDFLAGS= -pthread -lm -Wno-unused-result -Wno-sign-compare -Wno-unused-variable -Wno-parentheses -Wno-format
 $(BIN) :
 	@echo "bin"
-	$(CXX) $(CFLAGS) $(LDFLAGS) -L/usr/local/opt/llvm/lib -o $@ $(filter %.cpp %.o %.c, $^)
+	# intel Mac
+	# $(CXX) $(CFLAGS) $(LDFLAGS) -L/usr/local/opt/llvm/lib -o $@ $(filter %.cpp %.o %.c, $^)
+	# M1 mac
+	$(CXX) -arch arm64 $(CFLAGS) $(LDFLAGS) -L/opt/homebrew/opt/llvm/lib  -o $@ $(filter %.cpp %.o %.c, $^)
 $(OBJ) :
 	@echo "obj"
 	$(CXX) -c $(CFLAGS) -o $@ $(firstword $(filter %.cpp %.c, $^) )
